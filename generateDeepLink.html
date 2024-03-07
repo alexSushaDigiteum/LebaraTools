@@ -15,7 +15,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
     <div class="container-md p-4">
@@ -60,7 +59,9 @@
         />
       </div>
       <div class="mt-5">
-        <button id="submit" class="btn btn-primary">Submit</button>
+        <button id="submit" class="btn btn-primary" onclick="generateLink()">
+          Submit
+        </button>
       </div>
 
       <div class="card mt-3">
@@ -97,25 +98,25 @@
         }
       };
 
-      $(document).ready(function () {
-        $("button").click(function () {
-          const freeSim = document.getElementById("freeSimInput").checked;
-          const productId = $("#productId").val();
-          const promoCode = $("#promoCodeInput").val();
-          const topUp = $("#topupInput").val();
-          const redirectionPage = $("#redirectionPage").val();
+      const generateLink = () => {
+        const freeSim = document.getElementById("freeSimInput").checked;
+        const productId = document.getElementById("productId").value;
+        const promoCode = document.getElementById("promoCodeInput").value;
+        const topUp = document.getElementById("topupInput").value;
+        const redirectionPage =
+          document.getElementById("redirectionPage").value;
 
-          const generatedLink = generateDeepLink({
-            freeSim,
-            productId,
-            topUp,
-            promoCode,
-            redirectionPage,
-          });
-
-          $("#generatedLink").text(generatedLink);
+        const generatedLink = generateDeepLink({
+          freeSim,
+          productId,
+          topUp,
+          promoCode,
+          redirectionPage,
         });
-      });
+
+        const resultNode = document.getElementById("generatedLink");
+        resultNode.textContent = generatedLink;
+      };
     </script>
   </body>
 </html>
