@@ -15,9 +15,14 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
-    <div class="container-md">
+    <div class="container-md p-4">
       <div>
         <h2>Generate Lebara Deep Link</h2>
       </div>
@@ -26,37 +31,95 @@
           Would u like to have a free SIM?
         </label>
         <div>
-          <input
-            class="form-check-input"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-          />
+          <input id="freeSimInput" class="form-check-input" type="checkbox" />
         </div>
       </div>
       <div class="mt-3">
         <label for="exampleFormControlTextarea1" class="form-label"
-          >Which product ID would u like to add?</label
+          >Which product ID would you like to add?</label
         >
-        <input
-          class="form-control"
-          type="text"
-          placeholder="Default input"
-          aria-label="default input example"
-        />
+        <input id="productId" class="form-control" type="text" />
       </div>
       <div class="mt-3">
         <label for="exampleFormControlTextarea1" class="form-label"
-          >Which PROMO would u like to add?</label
+          >Which PROMO would you like to add?</label
+        >
+        <input id="promoCodeInput" class="form-control" type="text" />
+      </div>
+      <div class="mt-3">
+        <label for="exampleFormControlTextarea1" class="form-label"
+          >Which TOPUP would you like to add?</label
+        >
+        <input id="topupInput" class="form-control" type="text" />
+      </div>
+      <div class="mt-3">
+        <label for="exampleFormControlTextarea1" class="form-label"
+          >Where would you like to land?</label
         >
         <input
+          id="redirectionPage"
           class="form-control"
           type="text"
-          placeholder="Default input"
-          aria-label="default input example"
+          placeholder="https://sit.lebara.de/de/home.html"
         />
+      </div>
+      <div class="mt-5">
+        <button id="submit" class="btn btn-primary">Submit</button>
+      </div>
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <h5 class="card-title">Your generated link:</h5>
+          <p class="card-text" id="generatedLink"></p>
+        </div>
       </div>
     </div>
   </body>
-  <script></script>
+  <script>
+    const generateDeepLink = ({
+      freeSim,
+      productId,
+      promoCode,
+      topUp,
+      redirectionPage,
+    }) => {
+      let queries = [];
+      if (freeSim) {
+        queries.push("sim=true");
+      }
+      if (productId) {
+        queries.push(`id=${productId}`);
+      }
+      if (promoCode) {
+        queries.push(`promo=${promoCode}`);
+      }
+      if (topUp) {
+        queries.push(`topup=${topUp}`);
+      }
+
+      if (queries.length) {
+        return `${redirectionPage}?${queries.join("&")}`;
+      }
+    };
+
+    $(document).ready(function () {
+      $("button").click(function () {
+        const freeSim = document.getElementById("freeSimInput").checked;
+        const productId = $("#productId").val();
+        const promoCode = $("#promoCodeInput").val();
+        const topUp = $("#topupInput").val();
+        const redirectionPage = $("#redirectionPage").val();
+
+        const generatedLink = generateDeepLink({
+          freeSim,
+          productId,
+          topUp,
+          promoCode,
+          redirectionPage,
+        });
+
+        $("#generatedLink").text(generatedLink);
+      });
+    });
+  </script>
 </html>
