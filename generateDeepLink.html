@@ -33,7 +33,7 @@
         <label for="exampleFormControlTextarea1" class="form-label"
           >Which product ID would you like to add?</label
         >
-        <input id="productId" class="form-control" type="text" />
+        <input id="productId" class="form-control" type="number" />
       </div>
       <div class="mt-3">
         <label for="exampleFormControlTextarea1" class="form-label"
@@ -55,10 +55,10 @@
           id="redirectionPage"
           class="form-control"
           type="text"
-          placeholder="https://sit.lebara.de/de/home.html"
+          placeholder="Example: https://sit.lebara.de/de/home.html"
         />
       </div>
-      <div class="mt-5">
+      <div class="mt-4">
         <button id="submit" class="btn btn-primary" onclick="generateLink()">
           Submit
         </button>
@@ -93,8 +93,11 @@
           queries.push(`topup=${topUp}`);
         }
 
+        const landingPage =
+          redirectionPage || "https://sit.lebara.de/en/home.html";
+
         if (queries.length) {
-          return `${redirectionPage}?${queries.join("&")}`;
+          return `${landingPage}?${queries.join("&")}`;
         }
       };
 
