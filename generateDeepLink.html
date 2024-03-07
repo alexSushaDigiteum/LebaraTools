@@ -74,52 +74,52 @@
         </div>
       </div>
     </div>
-  </body>
-  <script>
-    const generateDeepLink = ({
-      freeSim,
-      productId,
-      promoCode,
-      topUp,
-      redirectionPage,
-    }) => {
-      let queries = [];
-      if (freeSim) {
-        queries.push("sim=true");
-      }
-      if (productId) {
-        queries.push(`id=${productId}`);
-      }
-      if (promoCode) {
-        queries.push(`promo=${promoCode}`);
-      }
-      if (topUp) {
-        queries.push(`topup=${topUp}`);
-      }
+    <script>
+      const generateDeepLink = ({
+        freeSim,
+        productId,
+        promoCode,
+        topUp,
+        redirectionPage,
+      }) => {
+        let queries = [];
+        if (freeSim) {
+          queries.push("sim=true");
+        }
+        if (productId) {
+          queries.push(`id=${productId}`);
+        }
+        if (promoCode) {
+          queries.push(`promo=${promoCode}`);
+        }
+        if (topUp) {
+          queries.push(`topup=${topUp}`);
+        }
 
-      if (queries.length) {
-        return `${redirectionPage}?${queries.join("&")}`;
-      }
-    };
+        if (queries.length) {
+          return `${redirectionPage}?${queries.join("&")}`;
+        }
+      };
 
-    $(document).ready(function () {
-      $("button").click(function () {
-        const freeSim = document.getElementById("freeSimInput").checked;
-        const productId = $("#productId").val();
-        const promoCode = $("#promoCodeInput").val();
-        const topUp = $("#topupInput").val();
-        const redirectionPage = $("#redirectionPage").val();
+      $(document).ready(function () {
+        $("button").click(function () {
+          const freeSim = document.getElementById("freeSimInput").checked;
+          const productId = $("#productId").val();
+          const promoCode = $("#promoCodeInput").val();
+          const topUp = $("#topupInput").val();
+          const redirectionPage = $("#redirectionPage").val();
 
-        const generatedLink = generateDeepLink({
-          freeSim,
-          productId,
-          topUp,
-          promoCode,
-          redirectionPage,
+          const generatedLink = generateDeepLink({
+            freeSim,
+            productId,
+            topUp,
+            promoCode,
+            redirectionPage,
+          });
+
+          $("#generatedLink").text(generatedLink);
         });
-
-        $("#generatedLink").text(generatedLink);
       });
-    });
-  </script>
+    </script>
+  </body>
 </html>
